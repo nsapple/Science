@@ -3,61 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agenda Viewer</title>
+    <title>Today's Agenda</title>
     <style>
         body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #121212;
+            color: #ffffff;
             font-family: Arial, sans-serif;
+        }
+
+        #agenda-card {
+            background: #1e1e1e;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            max-width: 80%;
             text-align: center;
-            padding: 20px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease;
         }
+
+        #agenda-card.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        #agenda-card:hover {
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+        }
+
+        #agenda-card h1 {
+            margin: 0;
+            font-size: 2em;
+            color: #64ffda;
+        }
+
+        #agenda-card p {
+            font-size: 1.2em;
+            color: #cccccc;
+        }
+
         #loading {
-            font-size: 20px;
-            color: gray;
-        }
-        table {
-            margin: 0 auto;
-            border-collapse: collapse;
-            width: 80%;
-        }
-        table, th, td {
-            border: 1px solid black;
-        }
-        th, td {
-            padding: 10px;
-            text-align: left;
-        }
-        button {
-            margin: 10px;
-            padding: 10px 20px;
-            font-size: 16px;
+            color: #888888;
+            font-size: 1.5em;
         }
     </style>
 </head>
 <body>
-    <h1>Agenda Viewer</h1>
-    <div id="loading">Loading...</div>
+    <div id="loading">Loading today's agenda...</div>
 
-    <div>
-        <button id="prev-day">Previous Day</button>
-        <button id="next-day">Next Day</button>
+    <div id="agenda-card">
+        <h1>Today's Agenda</h1>
+        <p id="agenda-text">No agenda for today.</p>
     </div>
 
-    <h2 id="current-date">Date: Loading...</h2>
-
-    <table id="agenda-table" style="display:none;">
-        <thead>
-            <tr>
-                <th>Date</th>
-                <th>Agenda</th>
-            </tr>
-        </thead>
-        <tbody>
-            <!-- Agenda items will be inserted here -->
-        </tbody>
-    </table>
-
     <script>
-        let currentDate = new Date(); // Default to today
         const csvUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSN4eos4Ca20oFbWLWqMWiz-6yC4Ao5tuGhpTy-1ox2bmASZGyAi3L0VGoHIJQkddo-RUCyoK3UcOCY/pub?output=csv";
 
         // Format date as "M/D/YYYY"
@@ -90,46 +95,33 @@
             });
         }
 
-        // Display agenda for a given date
-        async function displayAgendaForDate(date) {
-            const formattedDate = formatDateToString(date);
+        // Display agenda for today
+        async function displayAgendaForToday() {
+            const today = new Date();
+            const formattedDate = formatDateToString(today);
             const data = await fetchCSVData();
-            console.log("Formatted Date:", formattedDate); // Log the formatted date to check
-            console.log("Agenda Data:", data); // Log the parsed agenda data
+            console.log("Formatted Date:", formattedDate);
+            console.log("Agenda Data:", data);
 
-            // Find agenda for the date
-            const todayAgenda = data.filter(item => item.date === formattedDate);
-            const tableBody = document.querySelector("#agenda-table tbody");
+            const todayAgenda = data.find(item => item.date === formattedDate);
 
-            if (!tableBody) {
-                console.error("Table body element not found!");
-                return;
+            document.getElementById("loading").style.display = "none";
+            const agendaCard = document.getElementById("agenda-card");
+            const agendaText = document.getElementById("agenda-text");
+
+            if (todayAgenda) {
+                agendaText.textContent = todayAgenda.agenda;
+            } else {
+                agendaText.textContent = "No agenda for today.";
             }
 
-            // Hide the loading spinner and show the table
-            document.getElementById("loading").style.display = "none";
-            document.getElementById("agenda-table").style.display = "table";
-            document.getElementById("current-date").textContent = `Date: ${formattedDate}`;
-
-            // Display agenda data or no agenda message
-            tableBody.innerHTML = todayAgenda.length
-                ? todayAgenda.map(item => `<tr><td>${item.date}</td><td>${item.agenda}</td></tr>`).join("")
-                : `<tr><td colspan="2">No agenda for today.</td></tr>`;
+            // Show the agenda card with animation
+            agendaCard.classList.add("show");
         }
-
-        // Navigation function
-        function updateAgendaForDate(offset) {
-            currentDate.setDate(currentDate.getDate() + offset);
-            displayAgendaForDate(currentDate);
-        }
-
-        // Event listeners for navigation
-        document.getElementById("prev-day").addEventListener("click", () => updateAgendaForDate(-1));
-        document.getElementById("next-day").addEventListener("click", () => updateAgendaForDate(1));
 
         // Initial load
         window.onload = () => {
-            displayAgendaForDate(currentDate);
+            displayAgendaForToday();
         };
     </script>
 </body>
