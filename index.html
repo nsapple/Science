@@ -14,6 +14,7 @@
             background-color: #121212;
             color: #ffffff;
             font-family: Arial, sans-serif;
+            position: relative;
         }
 
         #agenda-card {
@@ -22,7 +23,7 @@
             padding: 30px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
             max-width: 80%;
-            text-align: left; /* Left align the text */
+            text-align: left;
             opacity: 0;
             transform: translateY(20px);
             transition: all 0.5s ease;
@@ -46,7 +47,7 @@
         #agenda-card p {
             font-size: 1.2em;
             color: #cccccc;
-            white-space: pre-line; /* Preserve line breaks */
+            white-space: pre-line;
             line-height: 1.5;
         }
 
@@ -63,6 +64,15 @@
             color: #888888;
             font-size: 1.5em;
         }
+
+        /* Style for the "Made by" footer */
+        #footer {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            font-size: 1em;
+            color: #888888;
+        }
     </style>
 </head>
 <body>
@@ -72,6 +82,8 @@
         <h1>Today's Agenda</h1>
         <p id="agenda-text">No agenda for today.</p>
     </div>
+
+    <div id="footer">made by alejandro rolando</div>
 
     <script>
         // Embedded agenda data directly in the HTML as a JavaScript object
