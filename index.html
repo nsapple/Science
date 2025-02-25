@@ -22,7 +22,7 @@
             padding: 30px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
             max-width: 80%;
-            text-align: center;
+            text-align: left; /* Left align the text */
             opacity: 0;
             transform: translateY(20px);
             transition: all 0.5s ease;
@@ -46,6 +46,17 @@
         #agenda-card p {
             font-size: 1.2em;
             color: #cccccc;
+            white-space: pre-line; /* Preserve line breaks */
+            line-height: 1.5;
+        }
+
+        a {
+            color: #64ffda;
+            text-decoration: underline;
+        }
+
+        a:hover {
+            color: #ffffff;
         }
 
         #loading {
@@ -63,41 +74,112 @@
     </div>
 
     <script>
-        const jsonUrl = "https://raw.githubusercontent.com/nsapple/Science/refs/heads/main/something.json";
+        // Embedded agenda data directly in the HTML as a JavaScript object
+        const agendaData = [
+            {
+                "date": "2/25/2025",
+                "agenda": `1. Accessing Prior Knowledge (Google Classroom)
+<a href="https://app.acceleratelearning.com/scopes/15646/elements/694026" target="_blank">Link</a>
+2. What Would REALLY Happen If You Cloned Yourself?
+<a href="https://www.youtube.com/watch?v=_Ybm_ZNLu0w" target="_blank">Link</a>
+3. How Dolly the Sheep was cloned
+<a href="https://www.youtube.com/watch?v=uAOmyOGELAA" target="_blank">Link</a>
+StemScope: Seg 3: Evolution Genes and Proteins`
+            },
+            {
+                "date": "2/26/2025",
+                "agenda": "Project review at 2 PM"
+            },
+            {
+                "date": "2/27/2025",
+                "agenda": `Tuesday Vocabulary
+1. Gene
+2. Protein
+3. Heredity
+4. Genotype
+5. Phenotype
+6. Alleles
+7. Trait
+8. Dominant
+9. Recessive
+10. Homozygous
+11. Heterozygous
+12. Acquired Trait
+13. Inherited Trait
+14. Chromosome`
+            },
+            {
+                "date": "2/28/2025",
+                "agenda": `Wednesday Vocabulary review on Kahoot
+1. <a href="https://create.kahoot.it/details/5d4fa80a-e580-4978-ba50-26ca079931fc" target="_blank">Link</a>
+2. <a href="https://create.kahoot.it/details/527fa48a-ddab-45a9-9264-736b6c2aeac0" target="_blank">Link</a>
+3. <a href="https://create.kahoot.it/details/155b2c70-abb7-4c0f-be92-7f283fe43b76" target="_blank">Link</a>
+
+StemScope: Seg 3: Evolution Genes and Proteins
+
+Review of Geologic Time Scale`
+            },
+            {
+                "date": "2/29/2025",
+                "agenda": `Thursday
+- Mapping Human Genes
+1. <a href="https://app.acceleratelearning.com/scopes/15646/elements/694028" target="_blank">Link</a>
+2. Explore 1: Activity - Chromosomes and Genes
+<a href="https://app.acceleratelearning.com/scopes/15646/elements/694030" target="_blank">Link</a>
+
+StemScope, Seg 3: Genes and Proteins`
+            },
+            {
+                "date": "3/1/2025",
+                "agenda": `Friday
+1. Explore 2: Research - Genes and Proteins
+<a href="https://app.acceleratelearning.com/scopes/15646/elements/694032" target="_blank">Link</a>
+2. <a href="https://app.acceleratelearning.com/scopes/15646/elements/694032" target="_blank">Link</a>
+
+StemScope, Seg 3: Genes and Proteins`
+            },
+            {
+                "date": "3/2/2025",
+                "agenda": "Study and review for upcoming test."
+            },
+            {
+                "date": "3/3/2025",
+                "agenda": "Introduction to Genetics and Heredity."
+            },
+            {
+                "date": "3/4/2025",
+                "agenda": "Lab activity: Exploring genetic variations in organisms."
+            },
+            {
+                "date": "3/5/2025",
+                "agenda": "Group project on dominant and recessive traits."
+            },
+            {
+                "date": "3/6/2025",
+                "agenda": "Review and discussion of final exam materials."
+            }
+        ];
 
         // Format date as "M/D/YYYY"
         function formatDateToString(date) {
             return `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`;
         }
 
-        // Fetch and parse JSON data
-        async function fetchJSONData() {
-            try {
-                const response = await fetch(`${jsonUrl}?nocache=${Math.random()}`);
-                const jsonData = await response.json();
-                return jsonData;
-            } catch (error) {
-                console.error("Error fetching JSON data:", error);
-                return [];
-            }
-        }
-
         // Display agenda for today
-        async function displayAgendaForToday() {
+        function displayAgendaForToday() {
             const today = new Date();
             const formattedDate = formatDateToString(today);
-            const data = await fetchJSONData();
             console.log("Formatted Date:", formattedDate);
-            console.log("Agenda Data:", data);
+            console.log("Agenda Data:", agendaData);
 
-            const todayAgenda = data.find(item => item.date === formattedDate);
+            const todayAgenda = agendaData.find(item => item.date === formattedDate);
 
             document.getElementById("loading").style.display = "none";
             const agendaCard = document.getElementById("agenda-card");
             const agendaText = document.getElementById("agenda-text");
 
             if (todayAgenda) {
-                agendaText.textContent = todayAgenda.agenda;
+                agendaText.innerHTML = todayAgenda.agenda; // Use innerHTML to render links
             } else {
                 agendaText.textContent = "No agenda for today.";
             }
