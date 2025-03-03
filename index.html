@@ -1,151 +1,151 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Today's Agenda</title>
-    <link rel="icon" href="https://img.icons8.com/fluency/400/earth-planet--v1.png" type="image/png">
-    <style>
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            background-color: #121212;
-            color: #ffffff;
-            font-family: Arial, sans-serif;
-            position: relative;
-        }
-
-        #agenda-card {
-            background: #1e1e1e;
-            border-radius: 15px;
-            padding: 30px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-            max-width: 80%;
-            text-align: left;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.5s ease;
-            overflow-wrap: break-word;
-            word-break: break-word;
-        }
-
-        #agenda-card.show {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        #agenda-card:hover {
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
-        }
-
-        #agenda-card h1 {
-            margin: 0;
-            font-size: 2em;
-            color: #64ffda;
-        }
-
-        #agenda-card p {
-            font-size: 1.2em;
-            color: #cccccc;
-            white-space: pre-line;
-            line-height: 1.5;
-        }
-
-        a {
-            color: #64ffda;
-            text-decoration: underline;
-        }
-
-        a:hover {
-            color: #ffffff;
-        }
-
-        #loading {
-            color: #888888;
-            font-size: 1.5em;
-        }
-
-        /* Style for the "Made by" footer */
-        #footer {
-            position: absolute;
-            bottom: 20px;
-            left: 20px;
-            font-size: 1em;
-            color: #888888;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Today's Agenda</title>
+  <link rel="icon" href="https://img.icons8.com/fluency/400/earth-planet--v1.png" type="image/png" />
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      background-color: #121212;
+      color: #ffffff;
+      font-family: Arial, sans-serif;
+      position: relative;
+    }
+    #agenda-card {
+      background: #1e1e1e;
+      border-radius: 15px;
+      padding: 30px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+      max-width: 80%;
+      text-align: left;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.5s ease;
+      overflow-wrap: break-word;
+      word-break: break-word;
+    }
+    #agenda-card.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    #agenda-card:hover {
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+    }
+    #agenda-card h1 {
+      margin: 0;
+      font-size: 2em;
+      color: #64ffda;
+    }
+    #agenda-card p {
+      font-size: 1.2em;
+      color: #cccccc;
+      white-space: pre-line;
+      line-height: 1.5;
+    }
+    a {
+      color: #64ffda;
+      text-decoration: underline;
+    }
+    a:hover {
+      color: #ffffff;
+    }
+    #loading {
+      color: #888888;
+      font-size: 1.5em;
+    }
+    /* Style for the "Made by" footer */
+    #footer {
+      position: absolute;
+      bottom: 20px;
+      left: 20px;
+      font-size: 1em;
+      color: #888888;
+    }
+  </style>
 </head>
 <body>
-    <div id="loading">Loading today's agenda...</div>
+  <div id="loading">Loading today's agenda...</div>
 
-    <div id="agenda-card">
-        <h1>Today's Agenda</h1>
-        <p id="agenda-text">No agenda for today.</p>
-    </div>
+  <div id="agenda-card">
+    <h1>Today's Agenda</h1>
+    <p id="agenda-text">No agenda for today.</p>
+  </div>
 
-    <div id="footer">made by alejandro rolando</div>
+  <div id="footer">made by alejandro rolando</div>
 
-    <script>
-        // Fixed agenda data (removed extra array structure)
-        const agendaData = [
-            {
-                "date": "2/24/2025",
-                "agenda": "Monday: Genes and Proteins\n1. Accessing Prior Knowledge (Google Classroom)\n<a href=\"https://app.acceleratelearning.com/scopes/15646/elements/694026\" target=\"_blank\">Link</a>\n2. What Would REALLY Happen If You Cloned Yourself?\n<a href=\"https://www.youtube.com/watch?v=_Ybm_ZNLu0w\" target=\"_blank\">Link</a>\n3. How Dolly the Sheep was cloned\n<a href=\"https://www.youtube.com/watch?v=uAOmyOGELAA\" target=\"_blank\">Link</a>\nStemScope: Seg 3: Evolution Genes and Proteins"
-            },
-            {
-                "date": "2/25/2025",
-                "agenda": "Tuesday: Vocabulary\n1. Gene\n2. Protein\n3. Heredity\n4. Genotype\n5. Phenotype\n6. Alleles\n7. Trait\n8. Dominant\n9. Recessive\n10. Homozygous\n11. Heterozygous\n12. Acquired Trait\n13. Inherited Trait\n14. Chromosome"
-            },
-            {
-                "date": "2/26/2025",
-                "agenda": "Wednesday: Vocabulary review on Kahoot\n1. <a href=\"https://create.kahoot.it/details/5d4fa80a-e580-4978-ba50-26ca079931fc\" target=\"_blank\">Link</a>\n2. <a href=\"https://create.kahoot.it/details/527fa48a-ddab-45a9-9264-736b6c2aeac0\" target=\"_blank\">Link</a>\n3. <a href=\"https://create.kahoot.it/details/155b2c70-abb7-4c0f-be92-7f283fe43b76\" target=\"_blank\">Link</a>\n\nStemScope: Seg 3: Evolution Genes and Proteins\n\nReview of Geologic Time Scale"
-            },
-            {
-                "date": "2/27/2025",
-                "agenda": "Thursday: Mapping Human Genes\n1. <a href=\"https://app.acceleratelearning.com/scopes/15646/elements/694028\" target=\"_blank\">Link</a>\n2. Explore 1: Activity - Chromosomes and Genes\n<a href=\"https://app.acceleratelearning.com/scopes/15646/elements/694030\" target=\"_blank\">Link</a>\n\nStemScope, Seg 3: Genes and Proteins"
-            },
-            {
-                "date": "2/28/2025",
-                "agenda": "Friday: Explore 2: Research - Genes and Proteins\n1. <a href=\"https://app.acceleratelearning.com/scopes/15646/elements/694032\" target=\"_blank\">Link</a>\n2. <a href=\"https://app.acceleratelearning.com/scopes/15646/elements/694032\" target=\"_blank\">Link</a>\n\nStemScope, Seg 3: Genes and Proteins"
-            }
-        ];
+  <script>
+    // Fixed agenda data (removed extra array structure)
+    const agendaData = [
+      {
+        "date": "3/3/2025",
+        "agenda": "Monday:\nPunnet Square\n1. Vocabulary Practice Dominant/Recessive Phenotype/Genotype\n   Link: https://docs.google.com/document/d/1nztHFJLjTFuS4Gnf4MeOBo9Lk_53zz5p/edit?usp=sharing&ouid=111431846613694234868&rtpof=true&sd=true\n2. Punnet Square Intro\n   Link: https://www.youtube.com/watch?v=PyP_5EgQBmE\n3. Matching Parents with Their Children\nStemScope: Seg 3: Evolution Genes and Proteins"
+      },
+      {
+        "date": "3/4/2025",
+        "agenda": "Tuesday:\n1. Learn Biology: How to Draw a Punnett Square\n   Link: https://www.youtube.com/watch?v=prkHKjfUmMs&t=66s\n2. Vocabulary Practice: Dominant/Recessive, Genotype/Phenotype, Homozygous/Heterozygous\n   Link: https://docs.google.com/document/d/1nztHFJLjTFuS4Gnf4MeOBo9Lk_53zz5p/edit?usp=sharing&ouid=111431846613694234868&rtpof=true&sd=true\n3. Punnet Square: Dominant/Recessive"
+      },
+      {
+        "date": "3/5/2025",
+        "agenda": "Wednesday:\nPunnet Square Review on Kahoot\n1. https://create.kahoot.it/details/5af19e92-9213-42c0-a43d-ca7ac87c8ccb\n2. https://create.kahoot.it/details/f68d97cb-9f46-47ab-a133-73faf2442c66\n3. https://create.kahoot.it/details/ea243e68-2fbb-4703-a1b7-f872ed4379d6\nStemScope: Seg 3: Evolution Genes and Proteins\nReview of Geologic Time Scale"
+      },
+      {
+        "date": "3/6/2025",
+        "agenda": "Thursday:\nPunnet Square Practice\n1. Khan Academy Punnet Square Fun on Edpuzzle\n   Link: https://edpuzzle.com/media/67b87b83532a48bee353a305\n2. Content Connections Video – Genes and Proteins\n   Link: https://app.acceleratelearning.com/scopes/15646/elements/882850\nStemScope, Seg 3: Genes and Proteins"
+      },
+      {
+        "date": "3/7/2025",
+        "agenda": "Friday:\n1. Explore 2: Research – Genes and Proteins\n   Link: https://app.acceleratelearning.com/scopes/15646/elements/694032\n2. Quiz\nStemScope, Seg 3: Genes and Proteins"
+      }
+    ];
 
-        // Format date as "M/D/YYYY"
-        function formatDateToString(date) {
-            return `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`;
-        }
+    // Format date as "M/D/YYYY"
+    function formatDateToString(date) {
+      return `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`;
+    }
 
-        // Display agenda for today
-        function displayAgendaForToday() {
-            const today = new Date();
-            const formattedDate = formatDateToString(today);
-            console.log("Formatted Date:", formattedDate);
+    // Convert plain text agenda into HTML with line breaks and clickable links.
+    function formatAgendaText(text) {
+      // Replace newline characters with <br>
+      let formattedText = text.replace(/\n/g, '<br>');
+      // Convert "Link:" followed by a URL into a clickable hyperlink
+      formattedText = formattedText.replace(/Link:\s*(https?:\/\/\S+)/g, 'Link: <a href="$1" target="_blank">$1</a>');
+      return formattedText;
+    }
 
-            const todayAgenda = agendaData.find(item => item.date === formattedDate);
+    // Display agenda for today
+    function displayAgendaForToday() {
+      const today = new Date();
+      const formattedDate = formatDateToString(today);
+      console.log("Formatted Date:", formattedDate);
 
-            // Hide loading text once agenda is ready
-            document.getElementById("loading").style.display = "none";
+      const todayAgenda = agendaData.find(item => item.date === formattedDate);
 
-            const agendaCard = document.getElementById("agenda-card");
-            const agendaText = document.getElementById("agenda-text");
+      // Hide loading text once agenda is ready
+      document.getElementById("loading").style.display = "none";
 
-            if (todayAgenda) {
-                agendaText.innerHTML = todayAgenda.agenda; // Use innerHTML to render links
-            } else {
-                agendaText.textContent = "No agenda for today.";
-            }
+      const agendaCard = document.getElementById("agenda-card");
+      const agendaText = document.getElementById("agenda-text");
 
-            // Show the agenda card with animation
-            agendaCard.classList.add("show");
-        }
+      if (todayAgenda) {
+        agendaText.innerHTML = formatAgendaText(todayAgenda.agenda);
+      } else {
+        agendaText.textContent = "No agenda for today.";
+      }
 
-        // Initial load
-        window.onload = () => {
-            displayAgendaForToday();
-        };
-    </script>
+      // Show the agenda card with animation
+      agendaCard.classList.add("show");
+    }
+
+    // Initial load
+    window.onload = () => {
+      displayAgendaForToday();
+    };
+  </script>
 </body>
 </html>
